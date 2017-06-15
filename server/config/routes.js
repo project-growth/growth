@@ -1,5 +1,7 @@
-import { login } from '../controllers/auth';
+// import { login } from '../controllers/auth';
 
-export default (app) => {
-  app.post('/login', login);
+module.exports = (app) => {
+  app.post('/login', (req, res) => {
+    res.send('login');
+  });
 };
