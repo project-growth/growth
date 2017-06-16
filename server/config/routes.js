@@ -1,7 +1,7 @@
 // import { login } from '../controllers/auth';
 
-module.exports = (app) => {
-  app.post('/login', (req, res) => {
+export default (app) => {
+  app.get('/login', (req, res) => {
     res.send('login');
   });
 };

@@ -11,7 +11,7 @@ module.exports = {
       "jsx-a11y",
       "import"
   ],
-  "no-console": [
-    "error", { allow: ["warn", "error"] }
-  ]
+  "rules":{
+        "no-console": 0
+    }
 };

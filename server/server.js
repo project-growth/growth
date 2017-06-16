@@ -1,12 +1,14 @@
 import express from 'express';
 import path from 'path';
-// import middleware from './config/middleware';
-// import routes from './config/routes';
+import dotenv from 'dotenv';
+import middleware from './config/middleware';
+import routes from './config/routes';
+
 const app = express();
 
-require('dotenv').config();
-require('./config/middleware')(express, app);
-require('./config/routes')(app);
+dotenv.config();
+middleware(express, app);
+routes(app);
 
 app.use(express.static(path.join(`${__dirname}/../build`)));
 app.use(express.static(path.join(`${__dirname}/../public`)));
