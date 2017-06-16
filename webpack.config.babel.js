@@ -1,9 +1,9 @@
-const path = require('path');
+import { resolve, join } from 'path';
 
-module.exports = {
+module.exports = () => ({
   entry: './client/client.jsx',
   output: {
-    path: path.resolve(`${__dirname}/build`),
+    path: resolve('build'),
     filename: 'bundle.js',
     publicPath: 'build/',
     pathinfo: true,
@@ -22,11 +22,11 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        loaders: ['style-loader', 'css-loader'],
       },
       {
         test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        loaders: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
@@ -40,7 +40,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.css'],
     modules: [
-      path.join(__dirname, 'node_modules'),
+      join(__dirname, 'node_modules'),
     ],
   },
-};
+});
