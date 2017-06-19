@@ -1,11 +1,12 @@
-import { resolve } from 'path';
-import { login, logout, register } from '../controllers/auth';
+import { login, logout, register } from '../controllers/user';
 
-export default (app) => {
-  app.get('*', (request, response) => {
-    response.sendFile(resolve(`${__dirname}/../public`, 'index.html'));
+
+export default (app, passport) => {
+  app.get('/profile', (req, res) => {
+    console.log(req.user);
+    res.send('logged in');
   });
-  app.post('/login', login);
-  app.get('/logout', logout);
-  app.post('/register', register);
+  app.post('/api/users/login', passport.authenticate('local-login'), login);
+  app.post('/api/users/register', register);
+  app.get('/api/users/logout', logout);
 };

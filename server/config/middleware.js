@@ -11,7 +11,7 @@ export default (app, passport) => {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
   app.use(cookieParser());
-  app.use(session({ secret: 'growing', resave: true, saveUninitialized: true }));
+  app.use(session({ secret: 'growing', name: 'name', resave: true, saveUninitialized: true }));
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(flash());

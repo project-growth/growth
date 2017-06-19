@@ -1,21 +1,25 @@
 import express from 'express';
-import path from 'path';
+import { resolve, join } from 'path';
 import dotenv from 'dotenv';
 import passport from 'passport';
 import middleware from './config/middleware';
 import routes from './config/routes';
-import db from './db/index';
-
-const app = express();
+import auth from './config/passport';
+import connection from './db/index';
 
 dotenv.config();
-middleware(app, passport);
-db();
-routes(app);
-passport(passport, db);
+const app = express();
 
-app.use(express.static(path.join(`${__dirname}/../build`)));
-app.use(express.static(path.join(`${__dirname}/../public`)));
+middleware(app, passport);
+routes(app, passport);
+auth(passport, connection);
+
+app.get('/*', (request, response) => {
+  response.sendFile(resolve(`${__dirname}/../public`, 'index.html'));
+});
+
+app.use(express.static(join(`${__dirname}/../build`)));
+app.use(express.static(join(`${__dirname}/../public`)));
 
 const server = app.listen(process.env.PORT || 3000, () => {
   const host = server.address().address;
