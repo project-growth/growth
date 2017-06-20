@@ -1,8 +1,10 @@
 import passport from 'passport';
 
-export const login = (req, res) => {
-  res.redirect('/profile', req.user);
-};
+export const login = passport.authenticate('local-login', {
+  successRedirect: '/#/profile',
+  failureRedirect: '/login',
+  failureFlash: true,
+});
 
 export const logout = (req, res) => {
   req.logout();
@@ -10,7 +12,7 @@ export const logout = (req, res) => {
 };
 
 export const register = passport.authenticate('local-signup', {
-  successRedirect: '/',
+  successRedirect: '/#/profile',
   failureRedirect: '/register',
   failureFlash: true,
 });

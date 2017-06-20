@@ -1,16 +1,17 @@
 import React from 'react';
-import { Route, IndexRoute } from 'react-router-dom';
-import App from './screens/App';
-import Home from './screens/Home';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Splash from './screens/Splash';
 import Login from './screens/Login';
 import Register from './screens/Register';
 import Profile from './screens/Profile';
 
 export default () => (
-  <Route path="/" component={App} >
-    <IndexRoute component={Home} />
-    <Route path="/login" component={Login} />
-    <Route path="/register" component={Register} />
-    <Route path="/profile" component={Profile} />
-  </Route>
+  <Router>
+    <div>
+      <Route path="/" component={Splash} />
+      <Route path="/login" component={Login} />
+      <Route path="/register" component={Register} />
+      <Route path="/profile" component={Profile} />
+    </div>
+  </Router>
   );

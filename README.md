@@ -10,7 +10,7 @@ npm install
 npm run compile
 ````
 ## Resources
-###### For development, you will only need Node.js installed on your environment.
+###### For development, you will only need Node.js (below version 8) installed on your environment.
 ## Building and Running Production Server
 ````
 npm start

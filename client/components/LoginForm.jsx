@@ -17,7 +17,7 @@ const enableSubmit = (props) => {
 const LoginForm = (props) => {
   const { handleSubmit } = props;
   return (
-    <form inline onSubmit={handleSubmit}>
+    <form >
       <Field
         name="Email"
         component="input"
@@ -32,16 +32,14 @@ const LoginForm = (props) => {
       />
       <button
         type="submit"
-        disabled={enableSubmit(this.props)}
+        disabled={enableSubmit(props)}
         style={{ borderRadius: '0' }}
       >Submit</button>
     </form>
   );
 };
 
-LoginForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-};
+
 const Form = reduxForm({
   form: 'search',
 })(LoginForm);

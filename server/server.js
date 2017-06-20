@@ -14,12 +14,12 @@ middleware(app, passport);
 routes(app, passport);
 auth(passport, connection);
 
+app.use(express.static(join(`${__dirname}/../build`)));
+app.use(express.static(join(`${__dirname}/../public`)));
+
 app.get('/*', (request, response) => {
   response.sendFile(resolve(`${__dirname}/../public`, 'index.html'));
 });
-
-app.use(express.static(join(`${__dirname}/../build`)));
-app.use(express.static(join(`${__dirname}/../public`)));
 
 const server = app.listen(process.env.PORT || 3000, () => {
   const host = server.address().address;

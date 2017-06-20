@@ -9,8 +9,8 @@ export default (passport, connection) => {
   });
   passport.deserializeUser((id, done) => {
     const queryStr = `SELECT * FROM users WHERE id = '${id}'`;
-    connection.query(queryStr, (err, rows) => {
-      done(err, rows[0]);
+    connection.query(queryStr, (err, user) => {
+      done(err, user[0]);
       return undefined;
     });
   });
@@ -47,12 +47,12 @@ export default (passport, connection) => {
     const queryStr = `SELECT * FROM users WHERE email = '${email}'`;
     connection.query(queryStr, (err, user) => {
       if (err) { return done(err); }
-      console.log(user);
+      console.log('local-login', user);
       const compared = compareSync(password, user[0].password);
       if (!user.length) {
         return done(null, false, req.flash('loginMessage', 'No user found.'));
       } else if (compared) {
-        return done(null, user);
+        return done(null, user[0]);
       }
       return done(null, false, req.flash('loginMessage', 'Incorrect password.'));
     });

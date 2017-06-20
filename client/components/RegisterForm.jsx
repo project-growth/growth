@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Field } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 
 const enableSubmit = (props) => {
   if (props.search) {
@@ -13,40 +13,30 @@ const enableSubmit = (props) => {
   return true;
 };
 
-const RegisterForm = (props) => {
-  const { handleSubmit } = props;
-  return (
-    <form inline onSubmit={handleSubmit}>
-      <Field
-        name="email"
-        component="input"
-        type="text"
-        placeholder="Email"
-      />
-      <Field
-        name="password"
-        component="input"
-        type="text"
-        placeholder="Password"
-      />
-      <Field
-        name="Password"
-        component="input"
-        type="text"
-        placeholder="Re-enter password"
-      />
-      <button
-        type="submit"
-        disabled={enableSubmit(this.props)}
-        style={{ borderRadius: '0' }}
-      >Submit</button>
-    </form>
+const RegisterForm = props => (
+  <form>
+    <Field
+      name="email"
+      component="input"
+      type="text"
+      placeholder="Email"
+    />
+    <Field
+      name="password"
+      component="input"
+      type="text"
+      placeholder="Password"
+    />
+    <button
+      type="submit"
+      disabled={enableSubmit(props)}
+      style={{ borderRadius: '0' }}
+    >Submit</button>
+  </form>
 
   );
-};
+const newForm = reduxForm({
+  form: 'register',
+})(RegisterForm);
 
-RegisterForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-};
-
-export default RegisterForm;
+export default newForm;
