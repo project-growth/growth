@@ -7,6 +7,9 @@
 3. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
     2. [Running Application](#running-application)
+      1. [Database](#database)
+      2. [Client](#client)
+      3. [Server](#server)
 4. [Support](#support)
 5. [Contributing](#contributing)
 
@@ -27,14 +30,21 @@ npm install
 ```
 
 ### Running Application
-Start local database:
+#### Database
+Open local database connection
 ```sh
 mysql.server start
 ```
+Run Schema file:
+```sh
+mysql -u root < server/schema.sql
+```
+#### Client
 Build bundle for client, and keep running in terminal:
 ```sh
 npm run compile
 ```
+#### Server
 Run server, and keep running in terminal:
 ```sh
 npm start
