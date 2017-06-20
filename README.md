@@ -2,7 +2,7 @@
 
 ## Table of Contents
 
-1. [Team](#our-team)
+1. [Our Team](#our-team)
 2. [Requirements](#requirements)
 3. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
@@ -18,6 +18,7 @@
 - __Developer__: [Cameron Dunne](https://github.com/camdunne)
 
 ##  Requirements
+- npm or yarn
 - Node ^0.10.x
 - MySQL
 
@@ -31,7 +32,7 @@ npm install
 
 ### Running Application
 #### Database
-Open local database connection
+Open local database connection:
 ```sh
 mysql.server start
 ```
