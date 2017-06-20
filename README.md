@@ -1,21 +1,29 @@
 # Growth
 
 ## Getting Started
-### Requirements
 ### Installation
 ```
 npm install
 ```
+### Requirements
+> Node.js
+> MySQL
+
+### Running Application
+###### start local database
+````
+mysql.server start
+````
+###### build bundle for client, and keep running in terminal
 ````
 npm run compile
 ````
-## Resources
-###### For development, you will only need Node.js (below version 8) installed on your environment.
-## Building and Running Production Server
+###### run server, and keep running in terminal
 ````
 npm start
 ````
-### Support
+
+## Support
 ###### If you have any questions or need support please email our team at project.growth2@gmail.com
 ## Contributing
 ###### We are more than happy to accept external contributions to the project in the form of feedback, bug reports and even better - pull requests.
