@@ -27,15 +27,15 @@ npm install
 ```
 
 ### Running Application
-start local database
+Start local database:
 ```sh
 mysql.server start
 ```
-build bundle for client, and keep running in terminal
+Build bundle for client, and keep running in terminal:
 ```sh
 npm run compile
 ```
-run server, and keep running in terminal
+Run server, and keep running in terminal:
 ```sh
 npm start
 ```
