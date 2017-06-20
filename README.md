@@ -7,9 +7,9 @@
 3. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
     2. [Running Application](#running-application)
-      1. [Database](#database)
-      2. [Client](#client)
-      3. [Server](#server)
+        1. [Database](#database)
+        2. [Client](#client)
+        3. [Server](#server)
 4. [Support](#support)
 5. [Contributing](#contributing)
 
