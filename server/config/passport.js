@@ -1,9 +1,9 @@
 import { hashSync, genSaltSync, compareSync } from 'bcrypt';
 import passportLocal from 'passport-local';
-import passportLinkedin from 'passport-linkedin';
+// import passportLinkedin from 'passport-linkedin';
 
 const LocalStrategy = passportLocal.Strategy;
-const LinkedInStrategy = passportLinkedin.Strategy;
+// const LinkedInStrategy = passportLinkedin.Strategy;
 
 export default (passport, connection) => {
   passport.serializeUser((user, done) => {

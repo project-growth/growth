@@ -30,16 +30,36 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`)
 );
 
+
+-- ---
+-- Table 'postings'
+--
+-- ---
+
+DROP TABLE IF EXISTS `postings`;
+
+CREATE TABLE `postings` (
+  `id` INTEGER AUTO_INCREMENT NOT NULL,
+  `heading` VARCHAR(150) NOT NULL
+  `description`  NULL VARCHAR(1000) DEFAULT NULL,
+  `poster_id` INTEGER NOT NULL,
+  `status` VARCHAR(10) NOT NULL,
+  `created_at` TIMESTAMP NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
 -- ---
 -- Foreign Keys
 -- ---
 
+ALTER TABLE `postings` ADD FOREIGN KEY (poster_id) REFERENCES `users` (`id`);
 
 -- ---
 -- Table Properties
 -- ---
 
 -- ALTER TABLE `users` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `postings` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ---
 -- Test Data
@@ -47,3 +67,5 @@ CREATE TABLE `users` (
 
 -- INSERT INTO `users` (`id`,`email`,`password`) VALUES
 -- ('','','');
+-- INSERT INTO `postings` (`id`,`description`,`poster_id`,`active`,`created_at`) VALUES
+-- ('','','','','');

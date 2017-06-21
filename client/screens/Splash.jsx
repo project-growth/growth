@@ -12,7 +12,7 @@ class Splash extends Component {
     if (this.props.loggedIn) {
       return (
         <div className="container">
-          <div>{'made it'}</div>
+          <Link to="/newpost">{'create new post'}</Link>
           <div>{'Hello user: '}{this.props.user}</div>
           <button onClick={this.props.logoutUser}>{'log out'}</button>
         </div>
