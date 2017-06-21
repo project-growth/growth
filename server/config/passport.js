@@ -6,10 +6,11 @@ const LocalStrategy = pl.Strategy;
 export default (passport, connection) => {
   passport.serializeUser((user, done) => {
     done(null, user.id);
+    return undefined;
   });
   passport.deserializeUser((id, done) => {
-    const queryStr = `SELECT * FROM users WHERE id = '${id}'`;
-    connection.query(queryStr, (err, user) => {
+    const queryStr = 'SELECT * FROM users WHERE id = ?';
+    connection.query(queryStr, [id], (err, user) => {
       done(err, user[0]);
       return undefined;
     });
@@ -20,11 +21,11 @@ export default (passport, connection) => {
     passReqToCallback: true,
   },
   (req, email, password, done) => {
-    const queryStr = `SELECT * FROM users WHERE email = '${email}'`;
-    connection.query(queryStr, (err, user) => {
+    const queryStr = 'SELECT * FROM users WHERE email = ?';
+    connection.query(queryStr, [email], (err, user) => {
       if (err) { return done(err); }
       if (user.length) {
-        return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+        return done(null, false, { message: 'That email is already taken.' });
       }
       const hashedPassword = hashSync(password, genSaltSync(8), null);
       const newUserMySql = { email, password: hashedPassword };
@@ -44,17 +45,16 @@ export default (passport, connection) => {
     passReqToCallback: true,
   },
   (req, email, password, done) => {
-    const queryStr = `SELECT * FROM users WHERE email = '${email}'`;
-    connection.query(queryStr, (err, user) => {
+    const queryStr = 'SELECT * FROM users WHERE email = ?';
+    connection.query(queryStr, [email], (err, user) => {
       if (err) { return done(err); }
-      console.log('local-login', user);
-      const compared = compareSync(password, user[0].password);
       if (!user.length) {
-        return done(null, false, req.flash('loginMessage', 'No user found.'));
-      } else if (compared) {
-        return done(null, user[0]);
+        return done(null, false, { message: 'No user found.' });
+      } else if (compareSync(password, user[0].password)) {
+        const userObj = { ...user[0] };
+        return done(null, userObj);
       }
-      return done(null, false, req.flash('loginMessage', 'Incorrect password.'));
+      return done(null, false, { message: 'Incorrect password.' });
     });
   }));
 };

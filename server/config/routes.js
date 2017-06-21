@@ -1,8 +1,8 @@
-import { login, logout, register } from '../controllers/user';
+import { redirect, logout } from '../controllers/user';
 
 
-export default (app) => {
-  app.post('/api/users/login', login);
-  app.post('/api/users/register', register);
+export default (app, passport) => {
+  app.post('/api/users/login', passport.authenticate('local-login'), redirect);
+  app.post('/api/users/register', passport.authenticate('local-signup'), redirect);
   app.get('/api/users/logout', logout);
 };

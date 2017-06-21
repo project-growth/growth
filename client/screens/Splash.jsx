@@ -1,20 +1,35 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { logoutUser } from '../actions/user';
 
-const Splash = (props) => {
-  console.log('splash', props);
-  return (
-    <form>
-      <button
-        onClick={() => { props.history.push('/register'); }}
-        label="Register"
-      />
-      <button
-        onClick={() => { props.history.push('/login'); }}
-        label="Log In"
-      />
-    </form>
-  );
-};
+class Splash extends Component {
+  constructor(props) {
+    super(props);
+    console.log(this.props);
+  }
+  render() {
+    if (this.props.shouldRedirect) {
+      return (
+        <div>
+          <div>made it</div>
+          <button onClick={this.props.logoutUser}>log out</button>
+        </div>
 
-export default connect(null, null)(Splash);
+      );
+    }
+    return (
+      <form>
+        <Link to="/register">
+          {'Register'}
+        </Link>
+
+        <Link to="/login">
+          {'Login'}
+        </Link>
+      </form>
+    );
+  }
+}
+const mapStateToProps = ({ user }) => ({ ...user });
+export default connect(mapStateToProps, { logoutUser })(Splash);

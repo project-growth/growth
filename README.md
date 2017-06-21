@@ -18,8 +18,9 @@
 - __Developer__: [Cameron Dunne](https://github.com/camdunne)
 
 ##  Requirements
+Have installed on your environment:
 - npm or yarn
-- Node ^0.10.x
+- Node.js ^0.10.x
 - MySQL
 
 ## Development
@@ -36,17 +37,17 @@ Open local database connection:
 ```sh
 mysql.server start
 ```
-Run Schema file:
+From within the root directory, run Schema file:
 ```sh
 mysql -u root < server/schema.sql
 ```
 #### Client
-Build bundle for client, and keep running in terminal:
+From within the root directory, build bundle for client, and keep running in terminal:
 ```sh
 npm run compile
 ```
 #### Server
-Run server, and keep running in terminal:
+From within the root directory, run server, and keep running in terminal:
 ```sh
 npm start
 ```
