@@ -11,9 +11,10 @@ class Splash extends Component {
   render() {
     if (this.props.loggedIn) {
       return (
-        <div>
-          <div>made it</div>
-          <button onClick={this.props.logoutUser}>log out</button>
+        <div className="container">
+          <div>{'made it'}</div>
+          <div>{'Hello user: '}{this.props.user}</div>
+          <button onClick={this.props.logoutUser}>{'log out'}</button>
         </div>
 
       );
@@ -33,10 +34,12 @@ class Splash extends Component {
 }
 Splash.defaultProps = {
   loggedIn: false,
+  user: null,
 };
 Splash.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   loggedIn: PropTypes.bool,
+  user: PropTypes.string,
 };
 const mapStateToProps = ({ user }) => ({ ...user });
 export default connect(mapStateToProps, { logoutUser })(Splash);
