@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import LoginForm from '../components/LoginForm';
 import { loginUser } from '../actions/user';
 
@@ -17,9 +18,14 @@ class Login extends Component {
   }
   render() {
     return (
-      <div className="row">
-        <div className="col-md-4 col-md-offset-4">
-          <LoginForm onSubmit={this.submit} />
+      <div className="container">
+        <h1>Log In</h1>
+        <LoginForm onSubmit={this.submit} />
+        <div>{'Need an '}
+          <Link to="/register">
+            {'Account'}
+          </Link>
+          {'?'}
         </div>
       </div>
     );
@@ -28,6 +34,9 @@ class Login extends Component {
 
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = state => ({

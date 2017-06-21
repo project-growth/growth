@@ -32,7 +32,7 @@ const registerForm = ({ handleSubmit, pristine, submitting, reset }) => (
             type="submit"
             disabled={pristine || submitting}
           >
-            {'Submit'}
+            {'sign up'}
           </button>
           <button
             type="button"

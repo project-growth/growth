@@ -33,7 +33,7 @@ const loginForm = ({ handleSubmit, pristine, submitting, reset }) => (
             type="submit"
             disabled={pristine || submitting}
           >
-            {'Submit'}
+            {'log in'}
           </button>
           <button
             type="button"
