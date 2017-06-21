@@ -1,7 +1,9 @@
 import { hashSync, genSaltSync, compareSync } from 'bcrypt';
-import pl from 'passport-local';
+import passportLocal from 'passport-local';
+import passportLinkedin from 'passport-linkedin';
 
-const LocalStrategy = pl.Strategy;
+const LocalStrategy = passportLocal.Strategy;
+const LinkedInStrategy = passportLinkedin.Strategy;
 
 export default (passport, connection) => {
   passport.serializeUser((user, done) => {
@@ -57,4 +59,15 @@ export default (passport, connection) => {
       return done(null, false, { message: 'Incorrect password.' });
     });
   }));
+//   passport.use(new LinkedInStrategy({
+//     consumerKey: process.env.LINKEDIN_API_KEY,
+//     consumerSecret: process.env.LINKEDIN_SECRET_KEY,
+//     callbackURL: 'http://127.0.0.1:3000/api/auth/linkedin/callback',
+//   },
+//   (token, tokenSecret, profile, done) => {
+//     const queryStr = '';
+//     const params = [];
+//     connection.query(queryStr, params, (err, user) => done(err, user));
+//   },
+// ));
 };
