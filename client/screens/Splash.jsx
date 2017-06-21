@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { logoutUser } from '../actions/user';
 
 class Splash extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
   }
   render() {
-    if (this.props.shouldRedirect) {
+    if (this.props.loggedIn) {
       return (
         <div>
           <div>made it</div>
@@ -31,5 +31,12 @@ class Splash extends Component {
     );
   }
 }
+Splash.defaultProps = {
+  loggedIn: false,
+};
+Splash.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  loggedIn: PropTypes.bool,
+};
 const mapStateToProps = ({ user }) => ({ ...user });
 export default connect(mapStateToProps, { logoutUser })(Splash);
