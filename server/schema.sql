@@ -40,11 +40,11 @@ DROP TABLE IF EXISTS `postings`;
 
 CREATE TABLE `postings` (
   `id` INTEGER AUTO_INCREMENT NOT NULL,
-  `heading` VARCHAR(150) NOT NULL
-  `description`  NULL VARCHAR(1000) DEFAULT NULL,
-  `poster_id` INTEGER NOT NULL,
+  `heading` VARCHAR(150) NOT NULL,
+  `description` VARCHAR(1000) NOT NULL,
+  `poster_id` INTEGER(100) NOT NULL,
   `status` VARCHAR(10) NOT NULL,
-  `created_at` TIMESTAMP NOT NULL,
+  `created_at` INTEGER(30) NOT NULL,
   PRIMARY KEY (`id`)
 );
 
