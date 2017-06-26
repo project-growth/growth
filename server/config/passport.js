@@ -1,6 +1,5 @@
 import { hashSync, genSaltSync, compareSync } from 'bcrypt';
 import passportLocal from 'passport-local';
-import bookshelf from '../db/bookshelf';
 import User from '../models/user';
 import Local from '../models/localLogin';
 // import passportLinkedin from 'passport-linkedin';
@@ -13,7 +12,8 @@ export default (passport) => {
     done(null, user.id);
   });
   passport.deserializeUser((id, done) => {
-    bookshelf.select().from('local_login').where('user_id', id)
+    new Local({ user_id: id })
+      .fetch()
       .then((user) => { done(null, user); })
       .catch((err) => { console.error(err); });
   });
@@ -37,15 +37,16 @@ export default (passport) => {
           const userId = model.get('id');
           new Local({ email, password: hashedPassword, user_id: userId })
           .save()
-          .then((insert) => {
-            console.log(insert.get('id'), insert.get('email'));
+          .then(() => {
+            const modelJSON = model.toJSON();
+            return done(null, modelJSON);
           })
-          .catch((err) => { console.error(err); });
+          .catch((err) => { done(null, err); });
         })
-        .catch((err) => { console.error(err); });
+        .catch((err) => { done(null, err); });
         return undefined;
       })
-      .catch((err) => { console.error(err); });
+      .catch((err) => { done(null, err); });
     });
   }));
   passport.use('local-login', new LocalStrategy({
@@ -56,15 +57,22 @@ export default (passport) => {
   (req, email, password, done) => {
     new Local({ email })
       .fetch()
-      .then((user) => {
-        if (!user) {
+      .then((local) => {
+        if (!local) {
           return done(null, false, { message: 'No user found.' });
         }
-        const userJSON = user.toJSON();
-        if (compareSync(password, userJSON.password)) {
-          return done(null, { ...userJSON });
+        const localJSON = local.toJSON();
+        if (compareSync(password, localJSON.password)) {
+          const userId = localJSON.user_id;
+          new User({ id: userId })
+            .fetch()
+            .then((user) => {
+              const userJSON = user.toJSON();
+              return done(null, userJSON);
+            })
+            .catch(err => done(err));
         }
-        return done(null, { ...userJSON });
+        return undefined;
       })
       .catch(err => done(err));
   }));
