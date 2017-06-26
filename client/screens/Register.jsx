@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import RegisterForm from '../components/RegisterForm';
 import { registerUser } from '../actions/user';
 
@@ -16,9 +17,15 @@ class Register extends Component {
   }
   render() {
     return (
-      <div className="row">
-        <div className="col-md-4 col-md-offset-4">
-          <RegisterForm onSubmit={this.submit} />
+      <div className="container">
+        <h1>{'Sign up'}</h1>
+        <RegisterForm onSubmit={this.submit} />
+        <div>
+          {'Have an '}
+          <Link to="/login">
+            {'account'}
+          </Link>
+          {'?'}
         </div>
       </div>
     );
@@ -26,6 +33,9 @@ class Register extends Component {
 }
 Register.propTypes = {
   registerUser: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = state => ({

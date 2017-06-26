@@ -1,29 +1,29 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
-const registerForm = ({ handleSubmit, pristine, submitting, reset }) => (
+const postForm = ({ handleSubmit, pristine, submitting, reset }) => (
   <div className="row">
     <div className="col-md-4 col-md-offset-4">
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="email">{'email'}</label>
+          <label htmlFor="title">{'title'}</label>
           <div>
             <Field
-              name="email"
+              name="title"
               component="input"
               type="text"
-              placeholder="email"
+              placeholder="job heading"
             />
           </div>
         </div>
         <div>
-          <label htmlFor="password">{'password'}</label>
+          <label htmlFor="body">{'job description'}</label>
           <div>
             <Field
-              name="password"
+              name="body"
               component="input"
               type="text"
-              placeholder="password"
+              placeholder="enter job description..."
             />
           </div>
         </div>
@@ -32,7 +32,7 @@ const registerForm = ({ handleSubmit, pristine, submitting, reset }) => (
             type="submit"
             disabled={pristine || submitting}
           >
-            {'sign up'}
+            {'Submit'}
           </button>
           <button
             type="button"
@@ -49,4 +49,4 @@ const registerForm = ({ handleSubmit, pristine, submitting, reset }) => (
 
 export default reduxForm({
   form: 'register',
-})(registerForm);
+})(postForm);
