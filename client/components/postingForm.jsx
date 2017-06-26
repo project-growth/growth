@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
-const postingForm = ({ handleSubmit, pristine, submitting, reset }) => (
+const postForm = ({ handleSubmit, pristine, submitting, reset }) => (
   <div className="row">
     <div className="col-md-4 col-md-offset-4">
       <form onSubmit={handleSubmit}>
@@ -49,4 +49,4 @@ const postingForm = ({ handleSubmit, pristine, submitting, reset }) => (
 
 export default reduxForm({
   form: 'register',
-})(postingForm);
+})(postForm);

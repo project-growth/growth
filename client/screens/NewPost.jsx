@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import PostingForm from '../components/postingForm';
-import { createPost } from '../actions/posting';
+import PostForm from '../components/postForm';
+import { createPost } from '../actions/post';
 
 class NewPost extends Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class NewPost extends Component {
     return (
       <div className="container">
         <h1>{'New Post'}</h1>
-        <PostingForm onSubmit={this.submit} />
+        <PostForm onSubmit={this.submit} />
         <Link to="/">{'Back to Profile'}</Link>
       </div>
     );

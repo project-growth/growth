@@ -1,5 +1,7 @@
 import { hashSync, genSaltSync, compareSync } from 'bcrypt';
 import passportLocal from 'passport-local';
+import User from '../models/user';
+import Local from '../models/localLogin';
 // import passportLinkedin from 'passport-linkedin';
 
 const LocalStrategy = passportLocal.Strategy;
@@ -47,17 +49,19 @@ export default (passport, connection) => {
     passReqToCallback: true,
   },
   (req, email, password, done) => {
-    const queryStr = 'SELECT * FROM users WHERE email = ?';
-    connection.query(queryStr, [email], (err, user) => {
-      if (err) { return done(err); }
-      if (!user.length) {
-        return done(null, false, { message: 'No user found.' });
-      } else if (compareSync(password, user[0].password)) {
-        const userObj = { ...user[0] };
-        return done(null, userObj);
-      }
-      return done(null, false, { message: 'Incorrect password.' });
-    });
+    new Local({ email })
+      .fetch()
+      .then((user) => {
+        if (!user) {
+          return done(null, false, { message: 'No user found.' });
+        }
+        const userJSON = user.toJSON();
+        if (compareSync(password, userJSON.password)) {
+          return done(null, { ...userJSON });
+        }
+        return done(null, userJSON);
+      })
+      .catch(err => done(err));
   }));
 //   passport.use(new LinkedInStrategy({
 //     consumerKey: process.env.LINKEDIN_API_KEY,
