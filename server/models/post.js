@@ -2,7 +2,7 @@ import bookshelf from '../db/bookshelf';
 import User from './user';
 
 const Post = bookshelf.Model.extend({
-  tableName: 'post',
+  tableName: 'posts',
   users: () => this.belongsTo(User),
 });
 

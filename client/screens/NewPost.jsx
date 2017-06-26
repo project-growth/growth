@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import PostForm from '../components/postForm';
-import { createPost } from '../actions/post';
+import PostForm from '../components/PostForm';
+import { createPost, resetPost } from '../actions/post';
 
 class NewPost extends Component {
   constructor(props) {
@@ -11,10 +11,13 @@ class NewPost extends Component {
     this.submit = this.submit.bind(this);
   }
   submit(values) {
-    const params = { ...values, user: this.props.user, createdAt: new Date() };
-    this.props.createPost(params).then((response) => {
-      console.log(response);
-    }).catch(err => console.error(err));
+    const params = { ...values, email: this.props.email };
+    this.props.createPost(params).then(() => {
+      // success/fail modal
+      this.props.resetPost();
+    }).catch(err => console.error(err))
+    .then(() => { this.props.history.push('/'); })
+    .catch(err => console.error(err));
   }
   render() {
     return (
@@ -27,15 +30,19 @@ class NewPost extends Component {
   }
 }
 NewPost.defaultProps = {
-  user: null,
+  email: null,
 };
 NewPost.propTypes = {
   createPost: PropTypes.func.isRequired,
-  user: PropTypes.string,
+  resetPost: PropTypes.func.isRequired,
+  email: PropTypes.string,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = ({ user }) => ({
   ...user,
 });
 
-export default connect(mapStateToProps, { createPost })(NewPost);
+export default connect(mapStateToProps, { createPost, resetPost })(NewPost);

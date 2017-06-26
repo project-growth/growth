@@ -6,10 +6,10 @@ const postForm = ({ handleSubmit, pristine, submitting, reset }) => (
     <div className="col-md-4 col-md-offset-4">
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="heading">{'heading'}</label>
+          <label htmlFor="title">{'title'}</label>
           <div>
             <Field
-              name="heading"
+              name="title"
               component="input"
               type="text"
               placeholder="job heading"
@@ -17,10 +17,10 @@ const postForm = ({ handleSubmit, pristine, submitting, reset }) => (
           </div>
         </div>
         <div>
-          <label htmlFor="description">{'job description'}</label>
+          <label htmlFor="body">{'job description'}</label>
           <div>
             <Field
-              name="description"
+              name="body"
               component="input"
               type="text"
               placeholder="enter job description..."

@@ -13,7 +13,8 @@ class Splash extends Component {
       return (
         <div className="container">
           <Link to="/newpost">{'create new post'}</Link>
-          <div>{'Hello user: '}{this.props.user}</div>
+          <Link to="/allposts">{'all postings'}</Link>
+          <div>{'Hello user: '}{this.props.email}</div>
           <button onClick={this.props.logoutUser}>{'log out'}</button>
         </div>
 
@@ -34,12 +35,12 @@ class Splash extends Component {
 }
 Splash.defaultProps = {
   loggedIn: false,
-  user: null,
+  email: null,
 };
 Splash.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   loggedIn: PropTypes.bool,
-  user: PropTypes.string,
+  email: PropTypes.string,
 };
 const mapStateToProps = ({ user }) => ({ ...user });
 export default connect(mapStateToProps, { logoutUser })(Splash);
