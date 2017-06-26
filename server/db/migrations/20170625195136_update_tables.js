@@ -1,7 +1,7 @@
 
 exports.up = (knex, Promise) => Promise.all([
   knex.schema.createTable('users', (table) => {
-    table.integer('id').unsigned().primary();
+    table.increments('id').unsigned().primary();
     table.string('email').notNullable();
     table.string('first_name').nullable();
     table.string('last_name').nullable();

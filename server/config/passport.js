@@ -1,5 +1,6 @@
 import { hashSync, genSaltSync, compareSync } from 'bcrypt';
 import passportLocal from 'passport-local';
+import bookshelf from '../db/bookshelf';
 import User from '../models/user';
 import Local from '../models/localLogin';
 // import passportLinkedin from 'passport-linkedin';
@@ -7,17 +8,14 @@ import Local from '../models/localLogin';
 const LocalStrategy = passportLocal.Strategy;
 // const LinkedInStrategy = passportLinkedin.Strategy;
 
-export default (passport, connection) => {
+export default (passport) => {
   passport.serializeUser((user, done) => {
     done(null, user.id);
-    return undefined;
   });
   passport.deserializeUser((id, done) => {
-    const queryStr = 'SELECT * FROM users WHERE id = ?';
-    connection.query(queryStr, [id], (err, user) => {
-      done(err, user[0]);
-      return undefined;
-    });
+    bookshelf.select().from('local_login').where('user_id', id)
+      .then((user) => { done(null, user); })
+      .catch((err) => { console.error(err); });
   });
   passport.use('local-signup', new LocalStrategy({
     usernameField: 'email',
@@ -25,22 +23,29 @@ export default (passport, connection) => {
     passReqToCallback: true,
   },
   (req, email, password, done) => {
-    const queryStr = 'SELECT * FROM users WHERE email = ?';
-    connection.query(queryStr, [email], (err, user) => {
-      if (err) { return done(err); }
-      if (user.length) {
-        return done(null, false, { message: 'That email is already taken.' });
-      }
-      const hashedPassword = hashSync(password, genSaltSync(8), null);
-      const newUserMySql = { email, password: hashedPassword };
-      const queryStr2 = 'INSERT INTO users (email, password) values (?, ?)';
-      const params = [newUserMySql.email, newUserMySql.password];
-      connection.query(queryStr2, params, (error, rows) => {
-        if (error) { return done(error); }
-        newUserMySql.id = rows.insertId;
-        return done(null, newUserMySql);
-      });
-      return undefined;
+    process.nextTick(() => {
+      new Local({ email })
+      .fetch()
+      .then((user) => {
+        if (user) {
+          return done('email already exists', null);
+        }
+        const hashedPassword = hashSync(password, genSaltSync(8), null);
+        new User({ email })
+        .save()
+        .then((model) => {
+          const userId = model.get('id');
+          new Local({ email, password: hashedPassword, user_id: userId })
+          .save()
+          .then((insert) => {
+            console.log(insert.get('id'), insert.get('email'));
+          })
+          .catch((err) => { console.error(err); });
+        })
+        .catch((err) => { console.error(err); });
+        return undefined;
+      })
+      .catch((err) => { console.error(err); });
     });
   }));
   passport.use('local-login', new LocalStrategy({
@@ -59,19 +64,8 @@ export default (passport, connection) => {
         if (compareSync(password, userJSON.password)) {
           return done(null, { ...userJSON });
         }
-        return done(null, userJSON);
+        return done(null, { ...userJSON });
       })
       .catch(err => done(err));
   }));
-//   passport.use(new LinkedInStrategy({
-//     consumerKey: process.env.LINKEDIN_API_KEY,
-//     consumerSecret: process.env.LINKEDIN_SECRET_KEY,
-//     callbackURL: 'http://127.0.0.1:3000/api/auth/linkedin/callback',
-//   },
-//   (token, tokenSecret, profile, done) => {
-//     const queryStr = '';
-//     const params = [];
-//     connection.query(queryStr, params, (err, user) => done(err, user));
-//   },
-// ));
 };

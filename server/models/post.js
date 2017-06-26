@@ -1,9 +1,9 @@
-import Bookshelf from '../db/bookshelf';
+import bookshelf from '../db/bookshelf';
 import User from './user';
 
-const Post = Bookshelf.Model.extend({
+const Post = bookshelf.Model.extend({
   tableName: 'post',
   users: () => this.belongsTo(User),
 });
 
-export default Bookshelf.model('Post', Post);
+export default bookshelf.model('Post', Post);

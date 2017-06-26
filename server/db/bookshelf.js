@@ -1,9 +1,12 @@
 import knex from 'knex';
-import bookshelf from 'bookshelf';
+import Bookshelf from 'bookshelf';
+import dotenv from 'dotenv';
 import knexfile from './knexfile';
 
-const Bookshelf = bookshelf(knex)(knexfile.development);
+dotenv.config();
 
-Bookshelf.plugin('registry');
+const bookshelf = Bookshelf((knex)(knexfile[process.env.NODE_ENV]));
 
-export default Bookshelf;
+bookshelf.plugin('registry');
+
+module.exports = bookshelf;
