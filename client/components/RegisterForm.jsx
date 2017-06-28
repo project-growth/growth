@@ -6,7 +6,7 @@ const registerForm = ({ handleSubmit, pristine, submitting, reset }) => (
     <div className="col-md-4 col-md-offset-4">
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="email">email</label>
+          <label htmlFor="email">{'email'}</label>
           <div>
             <Field
               name="email"
@@ -17,7 +17,7 @@ const registerForm = ({ handleSubmit, pristine, submitting, reset }) => (
           </div>
         </div>
         <div>
-          <label htmlFor="password">password</label>
+          <label htmlFor="password">{'password'}</label>
           <div>
             <Field
               name="password"
@@ -32,7 +32,7 @@ const registerForm = ({ handleSubmit, pristine, submitting, reset }) => (
             type="submit"
             disabled={pristine || submitting}
           >
-            {'Submit'}
+            {'sign up'}
           </button>
           <button
             type="button"

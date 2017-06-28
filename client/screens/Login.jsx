@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import LoginForm from '../components/LoginForm';
 import { loginUser } from '../actions/user';
 
@@ -11,27 +12,48 @@ class Login extends Component {
     this.submit = this.submit.bind(this);
   }
   submit(values) {
-    this.props.loginUser(values).then(() => {
-      this.props.history.push('/');
-    }).catch(err => console.error(err));
+    this.props.loginUser(values)
+    .then(() => {
+      if (this.props.loggedIn) {
+        this.props.history.push('/');
+      }
+      return undefined;
+    })
+    .catch((err) => { throw err; });
   }
   render() {
     return (
-      <div className="row">
-        <div className="col-md-4 col-md-offset-4">
-          <LoginForm onSubmit={this.submit} />
+      <div className="container">
+        <h1>Log In</h1>
+        <LoginForm onSubmit={this.submit} />
+        <div>{(this.props.errorMessage) ? this.props.errorMessage : ''}</div>
+        <div>{'Need an '}
+          <Link to="/register">
+            {'Account'}
+          </Link>
+          {'?'}
         </div>
       </div>
     );
   }
 }
 
-Login.propTypes = {
-  loginUser: PropTypes.func.isRequired,
+Login.defaultProps = {
+  errorMessage: null,
+  loggedIn: null,
 };
 
-const mapStateToProps = state => ({
-  ...state,
+Login.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  loggedIn: PropTypes.bool,
+  errorMessage: PropTypes.string,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+const mapStateToProps = ({ user }) => ({
+  ...user,
 });
 
 

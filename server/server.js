@@ -5,14 +5,13 @@ import passport from 'passport';
 import middleware from './config/middleware';
 import routes from './config/routes';
 import auth from './config/passport';
-import connection from './db/index';
 
 dotenv.config();
 const app = express();
 
 middleware(app, passport);
 routes(app, passport);
-auth(passport, connection);
+auth(passport);
 
 app.use(express.static(join(`${__dirname}/../build`)));
 app.use(express.static(join(`${__dirname}/../public`)));
