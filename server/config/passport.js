@@ -1,19 +1,19 @@
 import { hashSync, genSaltSync, compareSync } from 'bcrypt';
-import pl from 'passport-local';
+import passportLocal from 'passport-local';
+import User from '../models/user';
+import Local from '../models/localLogin';
 
-const LocalStrategy = pl.Strategy;
+const LocalStrategy = passportLocal.Strategy;
 
-export default (passport, connection) => {
+export default (passport) => {
   passport.serializeUser((user, done) => {
     done(null, user.id);
-    return undefined;
   });
   passport.deserializeUser((id, done) => {
-    const queryStr = 'SELECT * FROM users WHERE id = ?';
-    connection.query(queryStr, [id], (err, user) => {
-      done(err, user[0]);
-      return undefined;
-    });
+    new Local({ user_id: id })
+      .fetch()
+      .then((user) => { done(null, user); })
+      .catch((err) => { done(err); });
   });
   passport.use('local-signup', new LocalStrategy({
     usernameField: 'email',
@@ -21,22 +21,30 @@ export default (passport, connection) => {
     passReqToCallback: true,
   },
   (req, email, password, done) => {
-    const queryStr = 'SELECT * FROM users WHERE email = ?';
-    connection.query(queryStr, [email], (err, user) => {
-      if (err) { return done(err); }
-      if (user.length) {
-        return done(null, false, { message: 'That email is already taken.' });
-      }
-      const hashedPassword = hashSync(password, genSaltSync(8), null);
-      const newUserMySql = { email, password: hashedPassword };
-      const queryStr2 = 'INSERT INTO users (email, password) values (?, ?)';
-      const params = [newUserMySql.email, newUserMySql.password];
-      connection.query(queryStr2, params, (error, rows) => {
-        if (error) { return done(error); }
-        newUserMySql.id = rows.insertId;
-        return done(null, newUserMySql);
-      });
-      return undefined;
+    process.nextTick(() => {
+      new Local({ email })
+      .fetch()
+      .then((user) => {
+        if (user) {
+          return done(null, false, { message: 'email already exists' });
+        }
+        const hashedPassword = hashSync(password, genSaltSync(8), null);
+        new User({ email })
+        .save()
+        .then((model) => {
+          const userId = model.get('id');
+          new Local({ email, password: hashedPassword, user_id: userId })
+          .save()
+          .then(() => {
+            const modelJSON = model.toJSON();
+            return done(null, modelJSON);
+          })
+          .catch((err) => { done(err); });
+        })
+        .catch((err) => { done(err); });
+        return undefined;
+      })
+      .catch((err) => { done(err); });
     });
   }));
   passport.use('local-login', new LocalStrategy({
@@ -45,16 +53,26 @@ export default (passport, connection) => {
     passReqToCallback: true,
   },
   (req, email, password, done) => {
-    const queryStr = 'SELECT * FROM users WHERE email = ?';
-    connection.query(queryStr, [email], (err, user) => {
-      if (err) { return done(err); }
-      if (!user.length) {
-        return done(null, false, { message: 'No user found.' });
-      } else if (compareSync(password, user[0].password)) {
-        const userObj = { ...user[0] };
-        return done(null, userObj);
-      }
-      return done(null, false, { message: 'Incorrect password.' });
-    });
+    new Local({ email })
+      .fetch()
+      .then((local) => {
+        if (!local) {
+          return done(null, false, { message: 'No user found.' });
+        }
+        const localJSON = local.toJSON();
+        if (!compareSync(password, localJSON.password)) {
+          return done(null, false, { message: 'Incorrect password.' });
+        }
+        const userId = localJSON.user_id;
+        new User({ id: userId })
+            .fetch()
+            .then((user) => {
+              const userJSON = user.toJSON();
+              return done(null, userJSON);
+            })
+            .catch(err => done(err));
+        return undefined;
+      })
+      .catch(err => done(err));
   }));
 };
