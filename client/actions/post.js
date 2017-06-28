@@ -13,3 +13,9 @@ export function getPosts() {
     .then(response => dispatch({ type: 'GET_POSTS_FULFILLED', payload: response.data }))
     .catch(err => dispatch({ type: 'GET_POSTS_REJECTED', payload: err }));
 }
+
+export function fetchPost(id) {
+  return dispatch => axios.get(`/api/posts/${id}`)
+  .then(response => dispatch({ type: 'FETCH_POST_FULFILLED', payload: response.data }))
+  .catch(err => dispatch({ type: 'FETCH_POSTS_REJECTED', payload: err }));
+}

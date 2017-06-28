@@ -28,6 +28,28 @@ const postForm = ({ handleSubmit, pristine, submitting, reset }) => (
           </div>
         </div>
         <div>
+          <label htmlFor="price">{'Enter price in USD'}</label>
+          <div>
+            <Field
+              name="price"
+              component="input"
+              type="number"
+              placeholder="enter job description..."
+            />
+          </div>
+        </div>
+        <div>
+          <label htmlFor="location">{'job location'}</label>
+          <div>
+            <Field
+              name="body"
+              component="input"
+              type="text"
+              placeholder="enter job description..."
+            />
+          </div>
+        </div>
+        <div>
           <button
             type="submit"
             disabled={pristine || submitting}

@@ -7,12 +7,15 @@ import { logoutUser } from '../actions/user';
 class Splash extends Component {
   constructor(props) {
     super(props);
+    console.log('storage', sessionStorage);
+    console.log(sessionStorage.getItem('cookie'));
   }
   render() {
     if (this.props.loggedIn) {
       return (
         <div className="container">
           <Link to="/newpost">{'create new post'}</Link>
+          <br />
           <Link to="/allposts">{'all postings'}</Link>
           <div>{'Hello user: '}{this.props.email}</div>
           <button onClick={this.props.logoutUser}>{'log out'}</button>

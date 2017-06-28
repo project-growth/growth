@@ -5,6 +5,7 @@ import Login from './screens/Login';
 import Register from './screens/Register';
 import NewPost from './screens/NewPost';
 import AllPosts from './screens/AllPosts';
+import ViewPost from './screens/ViewPost';
 
 export default () => (
   <Router>
@@ -14,6 +15,7 @@ export default () => (
       <Route path="/register" component={Register} />
       <Route path="/newpost" component={NewPost} />
       <Route path="/allposts" component={AllPosts} />
+      <Route path="/post/:id" component={ViewPost} />
     </div>
   </Router>
   );

@@ -25,9 +25,24 @@ export default function reducer(state = {
       return {
         ...state,
         fetched: true,
+        allPosts: action.payload.posts,
       };
     }
     case 'GET_POSTS_REJECTED': {
+      return {
+        ...state,
+        fetched: false,
+      };
+    }
+    case 'FETCH_POSTS_FULFILLED': {
+      console.log(action.payload);
+      return {
+        ...state,
+        fetched: true,
+        currentPost: action.payload,
+      };
+    }
+    case 'FETCH_POSTS_REJECTED': {
       return {
         ...state,
         fetched: false,

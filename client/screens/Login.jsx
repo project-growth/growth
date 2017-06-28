@@ -12,15 +12,21 @@ class Login extends Component {
     this.submit = this.submit.bind(this);
   }
   submit(values) {
-    this.props.loginUser(values).then(() => {
-      this.props.history.push('/');
-    }).catch(err => console.error(err));
+    this.props.loginUser(values)
+    .then(() => {
+      if (this.props.loggedIn) {
+        this.props.history.push('/');
+      }
+      return undefined;
+    })
+    .catch((err) => { throw err; });
   }
   render() {
     return (
       <div className="container">
         <h1>Log In</h1>
         <LoginForm onSubmit={this.submit} />
+        <div>{(this.props.errorMessage) ? this.props.errorMessage : ''}</div>
         <div>{'Need an '}
           <Link to="/register">
             {'Account'}
@@ -32,15 +38,22 @@ class Login extends Component {
   }
 }
 
+Login.defaultProps = {
+  errorMessage: null,
+  loggedIn: null,
+};
+
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
+  loggedIn: PropTypes.bool,
+  errorMessage: PropTypes.string,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
 };
 
-const mapStateToProps = state => ({
-  ...state,
+const mapStateToProps = ({ user }) => ({
+  ...user,
 });
 
 

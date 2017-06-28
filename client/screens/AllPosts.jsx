@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getPosts } from '../actions/post';
+import PostsList from '../components/PostsList';
 
 class AllPosts extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      fetched: false,
-    };
+    console.log('post props', this.props);
   }
   componentDidMount() {
-    this.props.getPosts().then(() => {
-      this.setState({ fetched: true });
-    });
+    this.props.getPosts();
+    console.log(this.props);
   }
   render() {
-    if (!this.state.fetched) {
+    if (!this.props.fetched) {
       return (
         <div>
           {'loading...'}
@@ -25,17 +24,30 @@ class AllPosts extends Component {
     }
     return (
       <div>
-        {'fetched'}
+        <Link to="/"> {'Home'} </Link>
+        <PostsList posts={this.props.allPosts} />
       </div>
     );
   }
 }
 
-AllPosts.propTypes = {
-  getPosts: PropTypes.func.isRequired,
+AllPosts.defaultProps = {
+  fetched: null,
+  allPosts: [],
 };
 
-const mapStateToProps = post => ({
+AllPosts.propTypes = {
+  getPosts: PropTypes.func.isRequired,
+  fetched: PropTypes.bool,
+  allPosts: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+    body: PropTypes.string,
+    createdAt: PropTypes.string,
+  })),
+};
+
+const mapStateToProps = ({ post }) => ({
   ...post,
 });
 

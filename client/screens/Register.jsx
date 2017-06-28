@@ -11,15 +11,21 @@ class Register extends Component {
     this.submit = this.submit.bind(this);
   }
   submit(values) {
-    this.props.registerUser(values).then(() => {
-      this.props.history.push('/');
-    }).catch(err => console.error(err));
+    this.props.registerUser(values)
+    .then(() => {
+      if (this.props.loggedIn) {
+        this.props.history.push('/');
+      }
+      return undefined;
+    })
+    .catch((err) => { throw err; });
   }
   render() {
     return (
       <div className="container">
         <h1>{'Sign up'}</h1>
         <RegisterForm onSubmit={this.submit} />
+        <div>{(this.props.errorMessage) ? this.props.errorMessage : ''}</div>
         <div>
           {'Have an '}
           <Link to="/login">
@@ -31,15 +37,23 @@ class Register extends Component {
     );
   }
 }
+
+Register.defaultProps = {
+  errorMessage: null,
+  loggedIn: null,
+};
+
 Register.propTypes = {
   registerUser: PropTypes.func.isRequired,
+  errorMessage: PropTypes.string,
+  loggedIn: PropTypes.bool,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
 };
 
-const mapStateToProps = state => ({
-  ...state,
+const mapStateToProps = ({ user }) => ({
+  ...user,
 });
 
 
