@@ -7,8 +7,6 @@ import { logoutUser } from '../actions/user';
 class Splash extends Component {
   constructor(props) {
     super(props);
-    console.log('storage', sessionStorage);
-    console.log(sessionStorage.getItem('cookie'));
   }
   render() {
     if (this.props.loggedIn) {
@@ -20,7 +18,6 @@ class Splash extends Component {
           <div>{'Hello user: '}{this.props.email}</div>
           <button onClick={this.props.logoutUser}>{'log out'}</button>
         </div>
-
       );
     }
     return (

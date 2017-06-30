@@ -47,9 +47,6 @@ Register.propTypes = {
   registerUser: PropTypes.func.isRequired,
   errorMessage: PropTypes.string,
   loggedIn: PropTypes.bool,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
 };
 
 const mapStateToProps = ({ user }) => ({

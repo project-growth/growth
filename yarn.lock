@@ -2110,6 +2110,10 @@ event-stream@~3.3.0:
     stream-combiner "~0.0.4"
     through "~2.3.1"
 
+eventemitter3@^1.1.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-1.2.0.tgz#1c86991d816ad1e504750e73874224ecf3bec508"
+
 events@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/events/-/events-1.1.1.tgz#9ebdb7635ad099c70dcc4c2a1f5004288e8bd924"
@@ -2232,7 +2236,7 @@ fastparse@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/fastparse/-/fastparse-1.1.1.tgz#d1e2643b38a94d7583b479060e6c4affc94071f8"
 
-fbjs@^0.8.9:
+fbjs@^0.8.3, fbjs@^0.8.9:
   version "0.8.12"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.12.tgz#10b5d92f76d45575fd63a217d4ea02bea2f8ed04"
   dependencies:
@@ -2573,6 +2577,15 @@ globule@^1.0.0:
     glob "~7.1.1"
     lodash "~4.17.4"
     minimatch "~3.0.2"
+
+google-map-react@^0.24.0:
+  version "0.24.0"
+  resolved "https://registry.yarnpkg.com/google-map-react/-/google-map-react-0.24.0.tgz#7276546d303c5ae837963f8bc1386b75f1aa2c60"
+  dependencies:
+    eventemitter3 "^1.1.0"
+    fbjs "^0.8.3"
+    point-geometry "0.0.0"
+    scriptjs "^2.5.7"
 
 got@^3.2.0:
   version "3.3.1"
@@ -3336,6 +3349,10 @@ lodash.cond@^4.3.0:
   version "4.5.2"
   resolved "https://registry.yarnpkg.com/lodash.cond/-/lodash.cond-4.5.2.tgz#f471a1da486be60f6ab955d17115523dd1d255d5"
 
+lodash.debounce@^4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
+
 lodash.defaults@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/lodash.defaults/-/lodash.defaults-3.1.2.tgz#c7308b18dbf8bc9372d701a73493c61192bd2e2c"
@@ -4096,6 +4113,10 @@ pluralize@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-1.2.1.tgz#d1a21483fd22bb41e58a12fa3421823140897c45"
 
+point-geometry@0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/point-geometry/-/point-geometry-0.0.0.tgz#6fcbcad7a803b6418247dd6e49c2853c584daff7"
+
 postcss-calc@^5.2.0:
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/postcss-calc/-/postcss-calc-5.3.1.tgz#77bae7ca928ad85716e2fda42f261bf7c1d65b5e"
@@ -4376,7 +4397,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.0.0, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.9:
+prop-types@^15.0.0, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.8, prop-types@^15.5.9:
   version "15.5.10"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.10.tgz#2797dfc3126182e3a95e3dfbb2e893ddd7456154"
   dependencies:
@@ -4501,6 +4522,14 @@ react-dom@^15.6.1:
     object-assign "^4.1.0"
     prop-types "^15.5.10"
 
+react-places-autocomplete@^5.3.1:
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/react-places-autocomplete/-/react-places-autocomplete-5.3.1.tgz#f37e737eec05c53d8a9ba38b0106bac522f3ee99"
+  dependencies:
+    lodash.debounce "^4.0.8"
+    prop-types "^15.5.8"
+    react "^15.3.0"
+
 react-redux@^5.0.5:
   version "5.0.5"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-5.0.5.tgz#f8e8c7b239422576e52d6b7db06439469be9846a"
@@ -4538,7 +4567,7 @@ react-router@^4.1.1:
     prop-types "^15.5.4"
     warning "^3.0.0"
 
-react@^15.0.0, react@^15.6.1:
+react@^15.0.0, react@^15.3.0, react@^15.6.1:
   version "15.6.1"
   resolved "https://registry.yarnpkg.com/react/-/react-15.6.1.tgz#baa8434ec6780bde997cdc380b79cd33b96393df"
   dependencies:
@@ -4940,6 +4969,10 @@ schema-utils@^0.3.0:
   resolved "https://registry.yarnpkg.com/schema-utils/-/schema-utils-0.3.0.tgz#f5877222ce3e931edae039f17eb3716e7137f8cf"
   dependencies:
     ajv "^5.0.0"
+
+scriptjs@^2.5.7:
+  version "2.5.8"
+  resolved "https://registry.yarnpkg.com/scriptjs/-/scriptjs-2.5.8.tgz#d0c43955c2e6bad33b6e4edf7b53b8965aa7ca5f"
 
 scss-tokenizer@^0.2.3:
   version "0.2.3"

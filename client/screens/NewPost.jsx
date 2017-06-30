@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import PostForm from '../components/PostForm';
 import { createPost, resetPost } from '../actions/post';
 
@@ -12,6 +13,16 @@ class NewPost extends Component {
   }
   submit(values) {
     const params = { ...values, email: this.props.email };
+    console.log(values.address);
+    // geocodeByAddress(params.address)
+    //   .then(results => getLatLng(results[0]))
+    //   .then((latLng) => {
+    //     console.log('Success', latLng);
+    //
+    //     return undefined;
+    //   })
+    //   .catch((error) => { throw error; });
+
     this.props.createPost(params).then(() => {
       // success/fail modal
       this.props.resetPost();
@@ -36,9 +47,6 @@ NewPost.propTypes = {
   createPost: PropTypes.func.isRequired,
   resetPost: PropTypes.func.isRequired,
   email: PropTypes.string,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
 };
 
 const mapStateToProps = ({ user }) => ({

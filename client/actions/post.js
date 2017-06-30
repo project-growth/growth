@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export function createPost(params) {
+  console.log('createpost params', params)
   return dispatch => axios.post('/api/posts/create', params)
     .then(response => dispatch({ type: 'CREATE_POST_FULFILLED', payload: response.data }))
     .catch(err => dispatch({ type: 'CREATE_POST_REJECTED', payload: err }));
@@ -16,6 +17,6 @@ export function getPosts() {
 
 export function fetchPost(id) {
   return dispatch => axios.get(`/api/posts/${id}`)
-  .then(response => dispatch({ type: 'FETCH_POST_FULFILLED', payload: response.data }))
+  .then(response => dispatch({ type: 'FETCH_POSTS_FULFILLED', payload: response.data }))
   .catch(err => dispatch({ type: 'FETCH_POSTS_REJECTED', payload: err }));
 }
