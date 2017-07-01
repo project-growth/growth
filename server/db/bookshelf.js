@@ -9,4 +9,4 @@ const bookshelf = Bookshelf((knex)(knexfile[process.env.NODE_ENV]));
 
 bookshelf.plugin('registry');
 
-module.exports = bookshelf;
+export default bookshelf;

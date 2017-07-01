@@ -8,11 +8,9 @@ import PostsList from '../components/PostsList';
 class AllPosts extends Component {
   constructor(props) {
     super(props);
-    console.log('post props', this.props);
   }
   componentDidMount() {
     this.props.getPosts();
-    console.log(this.props);
   }
   render() {
     if (!this.props.fetched) {

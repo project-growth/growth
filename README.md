@@ -37,9 +37,9 @@ Open local database connection:
 ```sh
 mysql.server start
 ```
-From within the root directory, run Schema file:
+From within the server/db directory, run the knex migrations to get the MySQL tables:
 ```sh
-mysql -u root < server/schema.sql
+knex migrate:latest
 ```
 #### Client
 From within the root directory, build bundle for client, and keep running in terminal:

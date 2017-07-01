@@ -35,7 +35,6 @@ export default function reducer(state = {
       };
     }
     case 'FETCH_POSTS_FULFILLED': {
-      console.log(action.payload);
       return {
         ...state,
         fetched: true,

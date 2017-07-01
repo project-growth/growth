@@ -3,18 +3,14 @@ import Post from '../models/post';
 import { camelCase } from '../utils/ctrlHelper';
 
 export const createPost = (req, res) => {
-  const { title, body, price, location, email } = req.body;
+  const { email, title, body, price, address, lat, lng } = req.body;
   User.where({ email })
     .fetch()
-    .then((user) => {
-      const userId = user.get('id');
-      new Post({ title, body, price, location, author_id: userId })
-        .save()
-        .then(() => {
-          res.send({ saved: true });
-        })
-        .catch((err) => { console.error(err); });
-    })
+    .then(user => user.get('id'))
+    .then(id =>
+      new Post({ author_id: id, title, body, price, address, lat, lng })
+        .save())
+    .then(() => { res.send({ saved: true }); })
     .catch((err) => { console.error(err); });
 };
 
@@ -27,9 +23,18 @@ export const getPosts = (req, res) => {
 };
 
 export const viewPost = (req, res) => {
+  let postJSON;
   new Post({ id: req.params.id })
     .fetch()
     .then((post) => {
-      res.send(...camelCase([post.toJSON()]));
+      postJSON = camelCase([post.toJSON()])[0];
+      return postJSON.authorId;
+    })
+    .then(id => new User({ id }).fetch())
+    .then((user) => {
+      const email = user.get('email');
+      postJSON.email = email;
+      delete (postJSON.authorId);
+      res.send(postJSON);
     });
 };

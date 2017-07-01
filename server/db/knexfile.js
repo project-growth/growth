@@ -8,10 +8,10 @@ module.exports = {
       database: 'grow',
     },
     migrations: {
-      directory: './migrations',
+      directory: `${__dirname}/migrations`,
     },
     seeds: {
-      directory: './seeds',
+      directory: `${__dirname}/seeds`,
     },
   },
 };
