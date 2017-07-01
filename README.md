@@ -31,9 +31,11 @@ From within the root directory:
 npm install
 ```
 Add a .env file to your root directory with the following:
->> PORT=3000
->> NODE_ENV=development
 
+```sh
+PORT=3000
+NODE_ENV=development
+```
 ### Running Application
 #### Database
 Open local database connection:
