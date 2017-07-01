@@ -7,9 +7,10 @@
 3. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
     2. [Running Application](#running-application)
-        1. [Database](#database)
-        2. [Client](#client)
-        3. [Server](#server)
+        1. [.env](#.env)
+        2. [Database](#database)
+        3. [Client](#client)
+        4. [Server](#server)
 4. [Support](#support)
 5. [Contributing](#contributing)
 
@@ -26,17 +27,17 @@ Have installed on your environment:
 ## Development
 ### Installing Dependencies
 From within the root directory:
-
 ```sh
 npm install
 ```
-Add a .env file to your root directory with the following:
 
+### Running Application
+#### .env file
+Add a .env file to your root directory with the following:
 ```sh
 PORT=3000
 NODE_ENV=development
 ```
-### Running Application
 #### Database
 Open local database connection:
 ```sh
