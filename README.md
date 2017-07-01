@@ -30,9 +30,6 @@ From within the root directory:
 ```sh
 npm install
 ```
-Add a .env file to your root directory with the following:
->> PORT=3000
->> NODE_ENV=development
 
 ### Running Application
 #### Database
