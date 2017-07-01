@@ -10,19 +10,7 @@ class postForm extends Component {
   }
 
   render() {
-    const renderPlacesAutoComplete = ({ input, label, datasource, meta: { touched, error }, ...custom
-    }) => (
-      <PlacesAutoComplete
-        inputProps={{
-          value: this.state.address,
-          onChange: this.onChange,
-          name: 'address',
-          type: 'text',
-          placeholder: 'enter job location...',
-        }}
-      />
-      );
-    const { handleSubmit, pristine, submitting, reset } = this.props;
+    const { handleSubmit, pristine, submitting, reset, address, onChangeInput } = this.props;
     return (
       <div className="row">
         <div className="col-md-4 col-md-offset-4">
@@ -50,13 +38,13 @@ class postForm extends Component {
               </div>
             </div>
             <div>
-              <label htmlFor="price">{'Enter price in USD'}</label>
+              <label htmlFor="price">{'Enter hourly wage in USD'}</label>
               <div>
                 <Field
                   name="price"
                   component="input"
                   type="number"
-                  placeholder="enter job price..."
+                  placeholder="enter hourly wage..."
                 />
               </div>
             </div>
@@ -67,8 +55,8 @@ class postForm extends Component {
                   name="address"
                   component={PlacesAutoComplete}
                   inputProps={{
-                    value: this.state.address,
-                    onChange: this.onChange,
+                    value: address,
+                    onChange: onChangeInput,
                     name: 'address',
                     type: 'text',
                     placeholder: 'enter job location...',

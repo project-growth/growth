@@ -3,14 +3,13 @@ import Post from '../models/post';
 import { camelCase } from '../utils/ctrlHelper';
 
 export const createPost = (req, res) => {
-  const { title, body, price, address, email } = req.body;
+  const { email, title, body, price, address, lat, lng } = req.body;
   User.where({ email })
     .fetch()
     .then(user => user.get('id'))
-    .then((id) => {
-      new Post({ title, body, price, address, author_id: id })
-        .save();
-    })
+    .then(id =>
+      new Post({ author_id: id, title, body, price, address, lat, lng })
+        .save())
     .then(() => { res.send({ saved: true }); })
     .catch((err) => { console.error(err); });
 };

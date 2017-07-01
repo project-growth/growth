@@ -10,12 +10,14 @@ class ViewPost extends Component {
     super(props);
   }
   componentWillMount() {
+    console.log(this.props.location.pathname);
     const id = this.props.location.pathname.slice(6);
     this.props.fetchPost(id);
   }
   render() {
     if (this.props.fetched) {
       const { currentPost } = this.props;
+      console.log('current post', currentPost);
       return (
         <div>
           <div>{currentPost.title}</div>
@@ -23,7 +25,12 @@ class ViewPost extends Component {
           <div>by user: {currentPost.email}</div>
           <div>{currentPost.createdAt}</div>
           <div>{currentPost.address}</div>
-          <Map key={Math.random()} />
+          <Map
+            key={Math.random()}
+            fetched={this.props.fetched}
+            lat={currentPost.lat}
+            lng={currentPost.lng}
+          />
         </div>
       );
     }

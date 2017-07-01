@@ -9,32 +9,38 @@ import { createPost, resetPost } from '../actions/post';
 class NewPost extends Component {
   constructor(props) {
     super(props);
+    this.state = { address: '' };
+    this.onChange = address => this.setState({ address });
     this.submit = this.submit.bind(this);
   }
   submit(values) {
-    const params = { ...values, email: this.props.email };
-    console.log(values.address);
-    // geocodeByAddress(params.address)
-    //   .then(results => getLatLng(results[0]))
-    //   .then((latLng) => {
-    //     console.log('Success', latLng);
-    //
-    //     return undefined;
-    //   })
-    //   .catch((error) => { throw error; });
-
-    this.props.createPost(params).then(() => {
+    const params = { ...values, address: this.state.address, email: this.props.email };
+    geocodeByAddress(this.state.address)
+      .then(results => getLatLng(results[0]))
+      .then((latLng) => {
+        params.lat = latLng.lat;
+        params.lng = latLng.lng;
+        return params;
+      })
+      .catch((error) => { throw error; })
+      .then(options => this.props.createPost(options),
       // success/fail modal
-      this.props.resetPost();
-    }).catch(err => console.error(err))
-    .then(() => { this.props.history.push('/'); })
-    .catch(err => console.error(err));
+      )
+      .catch(err => console.error(err))
+      .then(() => this.props.resetPost())
+      .catch(err => console.error(err))
+      .then(() => { this.props.history.push('/'); })
+      .catch(err => console.error(err));
   }
   render() {
     return (
       <div className="container">
         <h1>{'New Post'}</h1>
-        <PostForm onSubmit={this.submit} />
+        <PostForm
+          onSubmit={this.submit}
+          address={this.state.address}
+          onChangeInput={this.onChange}
+        />
         <Link to="/">{'Back to Profile'}</Link>
       </div>
     );

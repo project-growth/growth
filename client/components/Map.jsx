@@ -1,18 +1,26 @@
 import React from 'react';
-import GoogleMapReact from 'google-map-react';
+import GoogleMap from 'google-map-react';
 
-import { googleMaps } from '../keys';
+import { googleKey } from '../keys';
 
-const GoogleMaps = () => (
-  <div style={{ width: '100%', height: '400px' }}>
-    <GoogleMapReact
-      options={{ scrollwheel: false }}
-      defaultCenter={{ lat: 59.95, lng: 30.33 }}
-      defaultZoom={11}
-      bootstrapURLKeys={{ key: googleMaps() }}
-    />
-  </div>
+export default ({ fetched, lat, lng }) => {
+  if (!fetched) {
+    return (<div>loading...</div>);
+  }
+  return (
+    <div style={{ width: '100%', height: '400px' }}>
+      <GoogleMap
+        options={{ scrollwheel: false }}
+        defaultCenter={{ lat, lng }}
+        defaultZoom={13}
+        bootstrapURLKeys={{ key: googleKey() }}
+      >
+        <div
+          lat={lat}
+          lng={lng}
+          style={{ backgroundColor: 'black', width: '15px', height: '15px' }}
+        />
+      </GoogleMap>
+    </div>
   );
-
-
-export default GoogleMaps;
+};
