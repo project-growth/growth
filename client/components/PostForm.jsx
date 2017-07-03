@@ -1,12 +1,36 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import PlacesAutoComplete from 'react-places-autocomplete';
+import Map from './Map';
 
 class postForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { address: '' };
+    this.state = {
+      address: '',
+      lat: 40.748817,
+      lng: -73.985428,
+    };
     this.onChange = address => this.setState({ address });
+  }
+  componentWillMount() {
+    this.geolocation();
+  }
+  geolocation() {
+    const success = (pos) => {
+      const { coords } = pos;
+      const { latitude, longitude } = coords;
+      console.log(latitude, longitude);
+      this.setState({ lat: latitude, lng: longitude });
+      return { latitude, longitude };
+    };
+    const error = (err) => { throw err; };
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+    };
+    navigator.geolocation.getCurrentPosition(success, error, options);
   }
 
   render() {
@@ -48,6 +72,7 @@ class postForm extends Component {
                 />
               </div>
             </div>
+            <Map lat={this.state.lat} lng={this.state.lng} />
             <div>
               <label htmlFor="address">{'job location'}</label>
               <div>

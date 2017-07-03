@@ -3,12 +3,19 @@ import { resolve, join } from 'path';
 module.exports = () => ({
   entry: './client/client.jsx',
   output: {
-    path: resolve('build'),
+    path: resolve('public/build'),
     filename: 'bundle.js',
-    publicPath: 'build/',
+    publicPath: '/public/build/',
     pathinfo: true,
   },
   devtool: 'source-map',
+  watch: true,
+  resolve: {
+    extensions: ['.js', '.jsx', '.json', '.css'],
+    modules: [
+      join(__dirname, 'node_modules'),
+    ],
+  },
   module: {
     rules: [
       {
@@ -37,11 +44,4 @@ module.exports = () => ({
       },
     ],
   },
-  resolve: {
-    extensions: ['.js', '.jsx', '.json', '.css'],
-    modules: [
-      join(__dirname, 'node_modules'),
-    ],
-  },
-  watch: true,
 });

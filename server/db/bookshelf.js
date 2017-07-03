@@ -5,7 +5,7 @@ import knexfile from './knexfile';
 
 dotenv.config();
 
-const bookshelf = Bookshelf((knex)(knexfile[process.env.NODE_ENV]));
+const bookshelf = Bookshelf((knex)(knexfile[process.env.NODE_ENV || 'development']));
 
 bookshelf.plugin('registry');
 

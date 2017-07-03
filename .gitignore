@@ -1,7 +1,7 @@
 node_modules
 .env
 keys
-build
+public/build
 .idea
 =#.##
 
