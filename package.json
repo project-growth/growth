@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/server.js",
     "compile": "webpack -w",
-    "server": "nodemon -- node_modules/babel-cli/bin/babel-node.js server/server.js",
+    "server": "nodemon server/server.js",
     "con": "concurrently \"yarn run compile\" \"yarn run server\""
   },
   "bugs": {
@@ -63,6 +63,7 @@
     "babel-preset-react": "^6.23.0",
     "babel-preset-stage-2": "^6.22.0",
     "commitizen": "^2.9.6",
+    "concurrently": "^3.5.0",
     "css-loader": "^0.28.4",
     "eslint": "^3.0.0",
     "eslint-config-airbnb": "^15.0.1",

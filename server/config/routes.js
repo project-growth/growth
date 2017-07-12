@@ -2,21 +2,21 @@ const { authRegister, authLogin, loginSuccess, loginFail, logout, isLoggedIn } =
 const { createPost, getPosts, viewPost } = require('../controllers/post');
 
 
-module.exports = (app) => {
-  app.route('/users/register')
+module.exports = (router) => {
+  router.route('/users/register')
     .get(loginFail)
     .post(authRegister);
-  app.route('/users/login')
+  router.route('/users/login')
     .get(loginFail)
     .post(authLogin);
-  app.route('/users/profile')
+  router.route('/users/profile')
     .get(loginSuccess);
-  app.route('/users/logout')
+  router.route('/users/logout')
     .get(logout);
-  app.route('/posts/create')
+  router.route('/posts/create')
     .post(createPost);
-  app.route('/posts/getAll')
+  router.route('/posts/getAll')
     .get(getPosts);
-  app.route('/posts/:id')
+  router.route('/posts/:id')
     .get(viewPost);
 };
