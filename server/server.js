@@ -5,9 +5,10 @@ const passport = require('passport');
 
 config();
 const app = express();
+const router = express.Router();
 
-require('./config/middleware')(app, passport);
-require('./config/routes')(app);
+require('./config/middleware')(app, passport, router);
+require('./config/routes')(router);
 require('./config/passport')(passport);
 
 app.use(express.static(join(`${__dirname}/../build`)));

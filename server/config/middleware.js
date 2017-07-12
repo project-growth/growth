@@ -5,11 +5,9 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const flash = require('connect-flash');
-const routes = require('./routes');
 
-const router = Router();
 
-module.exports = (app, passport) => {
+module.exports = (app, passport, router) => {
   app.use(cors());
   app.use(morgan('dev'));
   app.use(bodyParser.urlencoded({ extended: false }));
@@ -24,5 +22,5 @@ module.exports = (app, passport) => {
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(flash());
-  app.use('/api/', router);
+  app.use('/api', router);
 };
