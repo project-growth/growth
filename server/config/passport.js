@@ -1,11 +1,11 @@
-import { hashSync, genSaltSync, compareSync } from 'bcrypt';
-import passportLocal from 'passport-local';
-import User from '../models/user';
-import Local from '../models/localLogin';
+const { hashSync, genSaltSync, compareSync } = require('bcrypt');
+const passportLocal = require('passport-local');
+const User = require('../models/user');
+const Local = require('../models/localLogin');
 
 const LocalStrategy = passportLocal.Strategy;
 
-export default (passport) => {
+module.exports = (passport) => {
   passport.serializeUser((user, done) => {
     done(null, user.id);
   });

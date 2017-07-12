@@ -18,11 +18,9 @@ class postForm extends Component {
   }
   geolocation() {
     const success = (pos) => {
-      const { coords } = pos;
-      const { latitude, longitude } = coords;
-      console.log(latitude, longitude);
-      this.setState({ lat: latitude, lng: longitude });
-      return { latitude, longitude };
+      const latLng = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+      this.setState(latLng);
+      return latLng;
     };
     const error = (err) => { throw err; };
     const options = {

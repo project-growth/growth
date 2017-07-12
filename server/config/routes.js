@@ -1,14 +1,22 @@
-import { authRegister, authLogin, loginSuccess, loginFail, logout } from '../controllers/user';
-import { createPost, getPosts, viewPost } from '../controllers/post';
+const { authRegister, authLogin, loginSuccess, loginFail, logout, isLoggedIn } = require('../controllers/user');
+const { createPost, getPosts, viewPost } = require('../controllers/post');
 
-export default (app) => {
-  app.post('/api/users/register', authRegister);
-  app.post('/api/users/login', authLogin);
-  app.get('/api/users/profile', loginSuccess);
-  app.get('/api/users/register', loginFail);
-  app.get('/api/users/login', loginFail);
-  app.get('/api/users/logout', logout);
-  app.post('/api/posts/create', createPost);
-  app.get('/api/posts/getAll', getPosts);
-  app.get('/api/posts/:id', viewPost);
+
+module.exports = (app) => {
+  app.route('/users/register')
+    .get(loginFail)
+    .post(authRegister);
+  app.route('/users/login')
+    .get(loginFail)
+    .post(authLogin);
+  app.route('/users/profile')
+    .get(loginSuccess);
+  app.route('/users/logout')
+    .get(logout);
+  app.route('/posts/create')
+    .post(createPost);
+  app.route('/posts/getAll')
+    .get(getPosts);
+  app.route('/posts/:id')
+    .get(viewPost);
 };

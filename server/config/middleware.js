@@ -1,11 +1,15 @@
-import cors from 'cors';
-import morgan from 'morgan';
-import bodyParser from 'body-parser';
-import cookieParser from 'cookie-parser';
-import session from 'express-session';
-import flash from 'connect-flash';
+const { Router } = require('express');
+const cors = require('cors');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const flash = require('connect-flash');
+const routes = require('./routes');
 
-export default (app, passport) => {
+const router = Router();
+
+module.exports = (app, passport) => {
   app.use(cors());
   app.use(morgan('dev'));
   app.use(bodyParser.urlencoded({ extended: false }));
@@ -20,4 +24,5 @@ export default (app, passport) => {
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(flash());
+  app.use('/api/', router);
 };

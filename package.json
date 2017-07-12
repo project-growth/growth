@@ -8,8 +8,10 @@
   "license": "MIT",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/server.js",
     "compile": "webpack -w",
-    "start": "nodemon -- node_modules/babel-cli/bin/babel-node.js server/server.js"
+    "server": "nodemon -- node_modules/babel-cli/bin/babel-node.js server/server.js",
+    "con": "concurrently \"yarn run compile\" \"yarn run server\""
   },
   "bugs": {
     "url": "https://github.com/project-growth/growth/issues"
