@@ -1,17 +1,14 @@
-import express from 'express';
-import { resolve, join } from 'path';
-import dotenv from 'dotenv';
-import passport from 'passport';
-import middleware from './config/middleware';
-import routes from './config/routes';
-import auth from './config/passport';
+const express = require('express');
+const { resolve, join } = require('path');
+const { config } = require('dotenv');
+const passport = require('passport');
 
-dotenv.config();
+config();
 const app = express();
 
-middleware(app, passport);
-routes(app, passport);
-auth(passport);
+require('./config/middleware')(app, passport);
+require('./config/routes')(app);
+require('./config/passport')(passport);
 
 app.use(express.static(join(`${__dirname}/../build`)));
 app.use(express.static(join(`${__dirname}/../public`)));

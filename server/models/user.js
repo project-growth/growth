@@ -1,6 +1,6 @@
-import Bookshelf from '../db/bookshelf';
-import LocalLogin from './localLogin';
-import Post from './post';
+const Bookshelf = require('../db/bookshelf');
+const LocalLogin = require('./localLogin');
+const Post = require('./post');
 
 const User = Bookshelf.Model.extend({
   tableName: 'users',
@@ -8,4 +8,4 @@ const User = Bookshelf.Model.extend({
   posts: () => this.hasMany(Post),
 });
 
-export default Bookshelf.model('User', User);
+module.exports = Bookshelf.model('User', User);

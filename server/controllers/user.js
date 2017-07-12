@@ -1,26 +1,36 @@
-import passport from 'passport';
+const passport = require('passport');
 
-export const authRegister = passport.authenticate('local-signup', {
-  successRedirect: '/api/users/profile',
-  failureRedirect: '/api/users/register',
-  failureFlash: true,
-});
+module.exports = {
+  authRegister: passport.authenticate('local-signup', {
+    successRedirect: '/api/users/profile',
+    failureRedirect: '/api/users/register',
+    failureFlash: true,
+  }),
 
-export const authLogin = passport.authenticate('local-login', {
-  successRedirect: '/api/users/profile',
-  failureRedirect: '/api/users/login',
-  failureFlash: true,
-});
+  authLogin: passport.authenticate('local-login', {
+    successRedirect: '/api/users/profile',
+    failureRedirect: '/api/users/login',
+    failureFlash: true,
+  }),
 
-export const loginSuccess = (req, res) => {
-  res.send(req.user);
-};
+  loginSuccess(req, res) {
+    res.send(req.user);
+  },
 
-export const loginFail = (req, res) => {
-  res.send({ message: req.flash('error') });
-};
+  loginFail(req, res) {
+    res.send({ message: req.flash('error') });
+  },
 
-export const logout = (req, res) => {
-  req.logout();
-  return res.json({ success: true });
+  logout(req, res) {
+    req.logout();
+    return res.json({ success: true });
+  },
+
+  isLoggedIn(req, res, next) {
+    if (req.user) {
+      next();
+    } else {
+      res.redirect('/api/users/login');
+    }
+  },
 };

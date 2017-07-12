@@ -1,9 +1,9 @@
-import bookshelf from '../db/bookshelf';
-import User from './user';
+const bookshelf = require('../db/bookshelf');
+const User = require('./user');
 
 const Post = bookshelf.Model.extend({
   tableName: 'posts',
   users: () => this.belongsTo(User),
 });
 
-export default bookshelf.model('Post', Post);
+module.exports = bookshelf.model('Post', Post);
