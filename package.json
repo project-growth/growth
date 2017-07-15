@@ -26,19 +26,13 @@
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.3",
     "dotenv": "^4.0.0",
-<<<<<<< HEAD
-=======
     "ejs": "^2.5.6",
->>>>>>> refactor(auth): ejs login/signup pages
     "express": "^4.15.3",
     "express-session": "^1.15.3",
     "flash": "^1.1.0",
     "google-map-react": "^0.24.0",
     "knex": "0.6.10",
-<<<<<<< HEAD
-=======
     "method-override": "^2.3.9",
->>>>>>> refactor(auth): ejs login/signup pages
     "moment": "^2.18.1",
     "morgan": "^1.8.2",
     "mysql": "^2.13.0",
@@ -88,12 +82,9 @@
     "webpack": "^2.6.1",
     "webpack-dev-middleware": "^1.10.2"
   },
-<<<<<<< HEAD
-=======
   "engines": {
     "node": "8.1.4"
   },
->>>>>>> refactor(auth): ejs login/signup pages
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
